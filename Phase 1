@@ -1,0 +1,64 @@
+import random
+
+print("AI: Hi, I'm here to listen. You can talk to me anytime. (type 'exit' to leave)\n")
+
+# --- Response banks ---
+sad_responses = [
+    "It sounds like you're feeling really down. That can be heavy to carry. Sometimes taking things one small step at a time can help.",
+    "I hear that you're feeling sad. You're not alone in feeling this way, even if it feels isolating right now.",
+]
+
+stress_responses = [
+    "It sounds like you're feeling stressed. When everything piles up, it can help to focus on just one small thing at a time.",
+    "I can tell you're overwhelmed. Try taking a deep breath and slowing things down for a moment.",
+]
+
+motivation_responses = [
+    "It sounds like you're struggling with motivation. Starting with something really small can help build momentum.",
+    "I hear that you're feeling unmotivated. Even doing one tiny task is a step forward.",
+]
+
+general_responses = [
+    "I'm here for you. Do you want to talk more about it?",
+    "That sounds important. I'm listening.",
+    "Tell me a bit more about what's been going on.",
+]
+
+# --- Simple emotion detection ---
+def detect_emotion(user_input):
+    user_input = user_input.lower()
+    
+    if any(word in user_input for word in ["sad", "upset", "hurt", "depressed"]):
+        return "sad"
+    elif any(word in user_input for word in ["stressed", "overwhelmed", "anxious", "pressure"]):
+        return "stress"
+    elif any(word in user_input for word in ["lazy", "unmotivated", "tired", "can't start"]):
+        return "motivation"
+    else:
+        return "general"
+
+# --- Gentle reflection (repeating user input slightly) ---
+def reflect(user_input):
+    return f"It sounds like you're feeling this way: \"{user_input}\"."
+
+# --- Chat loop ---
+while True:
+    user = input("You: ")
+
+    if user.lower() == "exit":
+        print("AI: I'm glad you shared with me. Take care of yourself.")
+        break
+
+    emotion = detect_emotion(user)
+    reflection = reflect(user)
+
+    if emotion == "sad":
+        response = random.choice(sad_responses)
+    elif emotion == "stress":
+        response = random.choice(stress_responses)
+    elif emotion == "motivation":
+        response = random.choice(motivation_responses)
+    else:
+        response = random.choice(general_responses)
+
+    print(f"\nAI: {reflection} {response}\n")
