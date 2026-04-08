@@ -1,0 +1,79 @@
+import random
+
+print("AI: Hey, I'm here with you. You can talk to me anytime. (type 'exit' to leave)\n")
+
+# --- Emotion detection ---
+def detect_emotion(text):
+    text = text.lower()
+
+    if any(w in text for w in ["sad", "down", "depressed", "lonely", "upset"]):
+        return "sad"
+    elif any(w in text for w in ["angry", "mad", "frustrated", "annoyed"]):
+        return "anger"
+    elif any(w in text for w in ["happy", "excited", "good", "great", "amazing"]):
+        return "happy"
+    elif any(w in text for w in ["stressed", "anxious", "overwhelmed", "pressure"]):
+        return "stress"
+    else:
+        return "neutral"
+
+# --- Response system (no repetition of user input) ---
+def respond(emotion):
+    if emotion == "sad":
+        return (
+            "I’m really sorry you’re feeling like this. "
+            "It’s okay to feel low sometimes — it doesn’t mean you’re stuck there. "
+            "Try doing one small thing that makes you feel even slightly comfortable, like listening to a song or taking a short break."
+        )
+
+    elif emotion == "anger":
+        return (
+            "That sounds really frustrating. When emotions are high like that, it can help to pause for a moment before reacting. "
+            "Try slowing your breathing down or stepping away from what triggered it for a bit — it helps you regain control."
+        )
+
+    elif emotion == "happy":
+        return (
+            "That’s really nice to hear. Hold onto that feeling — you deserve it. "
+            "Try doing something small that keeps that positive energy going, like sharing it with someone or doing something you enjoy."
+        )
+
+    elif emotion == "stress":
+        return (
+            "That sounds like a lot on your mind right now. "
+            "Try breaking things into one small step instead of everything at once — it makes things feel more manageable."
+        )
+
+    else:
+        return (
+            "I’m here with you. Tell me a bit more about what’s going on — I’m listening."
+        )
+
+# --- Gentle continuation (NOT repetitive) ---
+def follow_up(emotion):
+    if emotion == "sad":
+        return "Do you want to talk about what’s been weighing on you?"
+    elif emotion == "anger":
+        return "Do you want to talk about what triggered it?"
+    elif emotion == "happy":
+        return "What made your day feel good?"
+    elif emotion == "stress":
+        return "What’s been feeling the most overwhelming lately?"
+    else:
+        return "What’s been on your mind?"
+
+# --- Chat loop ---
+while True:
+    user = input("You: ")
+
+    if user.lower() == "exit":
+        print("AI: I'm glad you talked with me. Take care of yourself.")
+        break
+
+    emotion = detect_emotion(user)
+
+    response = respond(emotion)
+    question = follow_up(emotion)
+
+    print("\nAI:", response)
+    print(question, "\n")
