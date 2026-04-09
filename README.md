@@ -10,3 +10,14 @@ Though a reflection function was added to acknowledge and lightly rephrase user 
 In Phase 2, I focused on improving my model by making it feel more conversational rather than just responding with one-off messages. I introduced a basic memory system and added follow-up questions to help the AI continue conversations instead of stopping after a single response. I also began separating parts of the logic into functions (Such as response generation), to make the code more organized and easier to expand on.
 
 However, this phase also revealed several challenges. Even with memory and follow-up questions added, the AI still felt repetitive and somewhat robotic. The conversation often followed the same pattern each time, response, follow-up, repeat. This phase was important because it helped highlight the limitations of my initial approach and showed me what needed to be improved. It directly led to the development of Phase 2.5 where I could truly begin working on the issue of "How do I make these sentences flow better."
+
+# Phase 2.5 - Overview
+In Phase 2.5, I focused on fixing the main issues I found in Phase 2, especially how repetitive and robotic the chatbot felt during longer conversations. Instead of trying to add more structure, I simplified the system to make responses feel more natural and more like a real conversation.
+
+One of the biggest changes was removing the reflection system that repeated user input, since it made the chatbot feel unnatural. I replaced it with more direct and supportive responses that respond to the user’s emotion without echoing what they said. I also improved the response system by writing more thoughtful replies for each emotion, including new categories like anger and happiness, so the chatbot can handle a wider range of situations.
+
+The follow-up questions were also improved to match each emotion more clearly, helping the conversation continue in a more natural way instead of following the same pattern every time. This makes the chatbot feel more like it’s listening and responding, rather than just reacting.
+
+Compared to Phase 2, this version focuses less on structure and more on how the conversation feels. While Phase 2 introduced ideas like memory and follow-ups, it still struggled with flow and repetition. In Phase 2.5, I focused on making the interaction smoother, more natural, and easier to talk to.
+
+This phase shows my progress in understanding not just how to build a system, but how to improve the user experience. It reflects a shift from just adding features to actually thinking about how the chatbot feels to use.
