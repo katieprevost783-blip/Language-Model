@@ -1,0 +1,167 @@
+import random
+
+print("AI: Hey, I'm here with you. You can talk to me anytime. (type 'exit' to leave)\n")
+
+# --- Memory ---
+memory = {
+    "emotion_count": {},
+    "used_responses": set()
+}
+
+# --- Emotion detection ---
+def detect_emotion(text):
+    text = text.lower()
+
+    if any(w in text for w in ["sad", "down", "depressed", "lonely", "upset"]):
+        return "sad"
+    elif any(w in text for w in ["angry", "mad", "frustrated", "annoyed"]):
+        return "anger"
+    elif any(w in text for w in ["happy", "excited", "good", "great", "amazing"]):
+        return "happy"
+    elif any(w in text for w in ["stressed", "anxious", "overwhelmed", "pressure"]):
+        return "stress"
+    else:
+        return "neutral"
+
+# --- Smart response builder ---
+def respond(emotion):
+
+    # track how many times this emotion has appeared
+    count = memory["emotion_count"].get(emotion, 0)
+    memory["emotion_count"][emotion] = count + 1
+
+    # --- STAGES ---
+    if count == 0:
+        stage = "early"
+    elif count == 1:
+        stage = "middle"
+    else:
+        stage = "deep"
+
+    # --- RESPONSE BANKS ---
+    banks = {
+        "sad": {
+            "early": [
+                "I'm really sorry you're feeling like this.",
+                "That sounds really hard to deal with."
+            ],
+            "middle": [
+                "That really does sound heavy.",
+                "I can tell this is affecting you a lot."
+            ],
+            "deep": [
+                "You've been carrying this for a bit now.",
+                "It sounds like this has been weighing on you for a while."
+            ]
+        },
+
+        "stress": {
+            "early": [
+                "That sounds overwhelming.",
+                "That’s a lot to handle."
+            ],
+            "middle": [
+                "That kind of pressure builds up fast.",
+                "I can see how that would start to feel like too much."
+            ],
+            "deep": [
+                "It seems like this isn’t just a small thing anymore.",
+                "You’ve been dealing with a lot for a while now."
+            ]
+        },
+
+        "anger": {
+            "early": [
+                "That sounds really frustrating.",
+                "I can see why that would make you upset."
+            ],
+            "middle": [
+                "That kind of situation can really build up anger.",
+                "It makes sense you'd still be thinking about it."
+            ],
+            "deep": [
+                "It sounds like this has been sticking with you.",
+                "That kind of frustration doesn’t just go away quickly."
+            ]
+        },
+
+        "happy": {
+            "early": [
+                "That’s really nice to hear.",
+                "I’m glad things are going well."
+            ],
+            "middle": [
+                "It’s really good to hear that continuing.",
+                "Sounds like that’s been sticking with you in a good way."
+            ],
+            "deep": [
+                "That kind of feeling is really valuable.",
+                "It’s nice that this is lasting for you."
+            ]
+        },
+
+        "neutral": {
+            "early": ["I'm here with you."],
+            "middle": ["I'm still listening."],
+            "deep": ["Go on, I'm with you."]
+        }
+    }
+
+    # pick response but avoid repeats
+    options = banks[emotion][stage]
+    available = [r for r in options if r not in memory["used_responses"]]
+
+    if not available:
+        available = options  # fallback if all used
+
+    chosen = random.choice(available)
+    memory["used_responses"].add(chosen)
+
+    # --- Optional advice ---
+    advice = {
+        "sad": "Try to be gentle with yourself right now.",
+        "stress": "Maybe focus on one small step at a time.",
+        "anger": "Taking a short step back might help you reset.",
+        "happy": "",
+        "neutral": ""
+    }
+
+    response = chosen
+
+    if advice[emotion] and random.random() < 0.5:
+        response += " " + advice[emotion]
+
+    return response
+
+# --- Follow-up ---
+def follow_up(emotion):
+
+    questions = {
+        "sad": ["Do you want to talk more about it?", "What’s been the hardest part?"],
+        "stress": ["What’s been the most overwhelming part?", "Is it all happening at once?"],
+        "anger": ["What triggered it?", "What part bothered you the most?"],
+        "happy": ["What made it feel good?", "Do you want to tell me more?"],
+        "neutral": ["What’s been on your mind?", "Do you want to tell me more?"]
+    }
+
+    if random.random() < 0.4:
+        return random.choice(questions[emotion])
+    return ""
+
+# --- Chat loop ---
+while True:
+    user = input("You: ")
+
+    if user.lower() == "exit":
+        print("AI: I'm glad you talked with me. Take care of yourself.")
+        break
+
+    emotion = detect_emotion(user)
+
+    response = respond(emotion)
+    question = follow_up(emotion)
+
+    print("\nAI:", response)
+    if question:
+        print(question)
+    print()
