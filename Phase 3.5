@@ -1,0 +1,88 @@
+import random
+
+print("AI: Hey, I'm here with you. Talk to me like you normally would. (type 'exit' to leave)\n")
+
+# --- Emotion detection ---
+def detect_emotion(text):
+    text = text.lower()
+
+    if any(w in text for w in ["sad", "down", "depressed", "upset", "hurt"]):
+        return "sad"
+    if any(w in text for w in ["angry", "mad", "frustrated", "annoyed"]):
+        return "anger"
+    if any(w in text for w in ["happy", "good", "great", "proud", "excited"]):
+        return "happy"
+    if any(w in text for w in ["stressed", "overwhelmed", "anxious"]):
+        return "stress"
+
+    return "neutral"
+
+
+# --- Content detection (THIS is the upgrade) ---
+def detect_context(text):
+    text = text.lower()
+
+    context = {
+        "work": any(w in text for w in ["work", "job", "boss", "shift"]),
+        "school": any(w in text for w in ["school", "class", "teacher", "exam"]),
+        "social": any(w in text for w in ["friend", "friends", "people"]),
+        "family": any(w in text for w in ["mom", "dad", "family"]),
+        "conflict": any(w in text for w in ["yelled", "argued", "fight", "shouted"]),
+        "achievement": any(w in text for w in ["passed", "got", "won", "succeeded", "did well"])
+    }
+
+    return context
+
+
+# --- Response generator (more specific now) ---
+def respond(text, emotion):
+
+    context = detect_context(text)
+
+    response = []
+
+    # --- EMOTION layer ---
+    emotion_openers = {
+        "sad": "That sounds really painful to go through.",
+        "anger": "That sounds really frustrating and unfair.",
+        "happy": "That’s really good to hear.",
+        "stress": "That sounds like a lot to deal with.",
+        "neutral": "I hear you."
+    }
+
+    response.append(emotion_openers[emotion])
+
+    # --- CONTEXT layer (THIS is what makes it feel real) ---
+
+    if context["conflict"] and context["school"]:
+        response.append("Was this in class or after something happened with your teacher?")
+
+    elif context["conflict"] and context["work"]:
+        response.append("Was this something your boss said to you directly?")
+
+    elif context["achievement"]:
+        response.append("That’s something to be proud of—how did it feel when it happened?")
+
+    elif context["social"]:
+        response.append("Was it something a friend said or did?")
+
+    elif context["family"]:
+        response.append("Do you want to talk about what happened with your family?")
+
+    else:
+        response.append("What happened that led up to this?")
+
+    return " ".join(response)
+
+
+# --- Chat loop ---
+while True:
+    user = input("You: ")
+
+    if user.lower() == "exit":
+        print("AI: I'm glad you talked with me. Take care of yourself.")
+        break
+
+    emotion = detect_emotion(user)
+
+    print("\nAI:", respond(user, emotion), "\n")
