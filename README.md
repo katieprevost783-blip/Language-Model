@@ -1,4 +1,4 @@
-# Language-Model
+  # Language-Model
 LLM project used with Python, and C++ to speed up my model, The goal is to understand how AI models process and generate human language by building a simplified version from scratch.
 
 # Phase 1 - Overview
@@ -21,3 +21,8 @@ The follow-up questions were also improved to match each emotion more clearly, h
 Compared to Phase 2, this version focuses less on structure and more on how the conversation feels. While Phase 2 introduced ideas like memory and follow-ups, it still struggled with flow and repetition. In Phase 2.5, I focused on making the interaction smoother, more natural, and easier to talk to.
 
 This phase shows my progress in understanding not just how to build a system, but how to improve the user experience. It reflects a shift from just adding features to actually thinking about how the chatbot feels to use.
+
+# Phase 3/3.5 - Overview
+Phase 3.5 represents a significant improvement over Phase 3, shifting the chatbot from a primarily rule-based emotional response system into a more context-aware conversational model. While Phase 3 introduced foundational features such as basic emotion detection, simple memory tracking (turn count and last emotion), and randomized response variation, the interaction remained largely static and often felt repetitive. Responses were generated based on isolated emotional states without considering the actual content or context of the user’s message.
+
+In Phase 3.5, the system was refined to improve conversational depth and continuity. Instead of only reacting to detected emotions, the chatbot now incorporates contextual understanding by identifying elements such as situations related to school, work, interpersonal conflict, or achievements. This allows responses to become more relevant to what the user is actually describing, rather than relying solely on predefined emotional templates.Additionally, Phase 3.5 introduces emotional progression tracking, enabling the system to recognize when a user’s emotional state changes over time.
